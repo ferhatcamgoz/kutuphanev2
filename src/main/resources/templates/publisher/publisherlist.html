@@ -1,0 +1,50 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en">
+
+<head>
+    <title>Giriş Sayfası</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Reference Bootstrap files -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+<div>
+
+        <div class="container">
+            <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+            <div class="container">
+            
+					<table class="table table-striped">
+					<tr>
+                <th>Yayın Evi</th>
+              
+               
+                <th>Sil</th>
+                <th>Düzenle</th>
+                
+                </tr>
+					   <th:block th:each="publisher : ${publishers}">
+					     <tr>
+					         <td th:text="${publisher.name}">...</td>
+					         
+					        
+ 							<td><a th:href="${'/publisher/delete/'+ publisher.id}">Sil</a></td>   
+                    		<td><a th:href="${'/publisher/publisheredit/' + publisher.id}">Düzenle</a></td>
+							
+					        
+</tr>
+					   </th:block>
+					</table>
+            </div>
+
+    </div>
+</div>
+</body>
+</html>
+

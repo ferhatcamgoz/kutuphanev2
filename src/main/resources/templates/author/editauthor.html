@@ -1,0 +1,87 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
+<head>
+    <title>Giriş Sayfası</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Reference Bootstrap files -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+<div>
+    <div class="container">
+        <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+     
+        <div id="loginbox">
+
+            <div >
+                
+                <div  class="panel-body">
+
+                    <form th:action="@{/author/edit}"
+                          method="POST" class="form-horizontal">
+<input type="hidden" hidden name="id" th:value="${#authentication.principal.id}">
+                        <!-- User name -->
+                        <div style="margin-bottom: 25px" class="input-group">
+							<h3> <a  sec:authentication="principal.username"> </a> </h3>
+							   <input type="hidden" name="name"   th:value="${#authentication.principal.username}" placeholder="Kullanıcı Adı" class="form-control">
+                        </div>
+
+                        <!-- Password -->
+                        <div style="margin-bottom: 25px" class="input-group">
+
+                            <input type="password" name="password"  placeholder="Şifre" class="form-control">
+                        </div>
+                        <div style="margin-bottom: 25px" class="input-group">
+
+                              
+                            <select class="form-control" name="role" >
+    
+							     <option value="admin" >
+							     Admin
+							     </option>
+							     <option value="user" >
+							     User
+							     </option>
+							</select>
+                        </div>
+
+                        <!-- Login/Submit Button -->
+                        <div style="margin-top: 10px" class="form-group">
+                            <div class="col-sm-6 controls">
+                                <button type="submit" class="btn btn-success">Düzenle</button>
+                                <button type="submit"  th:formaction="'/delete-author/'+${#authentication.principal.id}" class="btn btn-danger">Sil</button>
+                            </div>
+                        </div>
+
+
+
+
+                    </form>
+                    
+                     <table>
+    <thead>
+       
+    </thead>
+    <tbody>
+	
+        <tr th:each="error : ${errors}">
+            
+            <td><span th:text="${error.getDefaultMessage()}"> Message </span></td>
+        </tr>
+    </tbody>
+</table>
+   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
