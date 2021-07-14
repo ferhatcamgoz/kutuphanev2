@@ -29,13 +29,13 @@ public class AuthorController {
     private PasswordEncoder passwordEncoder;
 
     @GetMapping("/login")
-    public String login(){
+    private String login(){
         return "login";
     }
     
   
     @GetMapping("/registration")
-    public String register(){
+    private String register(){
         return "registration";
     } 
     

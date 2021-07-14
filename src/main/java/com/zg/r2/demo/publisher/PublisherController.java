@@ -12,29 +12,32 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class PublisherController {
 	
-	@Autowired
-	PublisherService publisherService;
+	private final IPublisherService publisherService;
+	
+	PublisherController(IPublisherService publisherService){
+		this.publisherService=publisherService;
+	}
 	
 	
 	@GetMapping("/publisher/add")
-	String savePublisher() {
+	private String savePublisher() {
 		return "publisher/publisheradd";
 	} 
 	
 	@GetMapping("/publisher/publisherlist")
-	String getAll(Model model) {
+	private String getAll(Model model) {
 		model.addAttribute("publishers",publisherService.findAll());
 		return "publisher/publisherlist";
 	} 
 	@GetMapping("/publisher/publisheredit/{id}")
-	String edit(Model model,@PathVariable(value = "id") Long id) {
+	private String edit(Model model,@PathVariable(value = "id") Long id) {
 		model.addAttribute("publisher",publisherService.findById(id));
 		return "publisher/publisheredit";
 	} 
 	
 	
 	@PostMapping("/publisher/save")
-	String save(Model model,Publisher publisher) {
+	private String save(Model model,Publisher publisher) {
 		 publisherService.save(publisher);
 		
 		model.addAttribute("publishers",publisherService.findAll());
@@ -44,7 +47,7 @@ public class PublisherController {
 	
 	
 	@GetMapping("/publisher/delete/{id}")
-	String delete(Model model,@PathVariable(value = "id") Long id){
+	private String delete(Model model,@PathVariable(value = "id") Long id){
 		 publisherService.delete(id);
 		 model.addAttribute("publishers",publisherService.findAll());
 			return "publisher/publisherlist";

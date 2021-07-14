@@ -7,6 +7,7 @@ import com.zg.r2.demo.author.AuthorRepository;
 import com.zg.r2.demo.author.AuthorService;
 import com.zg.r2.demo.author.CurrnetUser;
 import com.zg.r2.demo.author.IAuthorService;
+import com.zg.r2.demo.publisher.IPublisherService;
 import com.zg.r2.demo.publisher.Publisher;
 
 import com.zg.r2.demo.publisher.PublisherService;
@@ -30,32 +31,32 @@ public class BookController {
     
     private final IAuthorService authorService;
   
-   private final BookService bookService;
+   private final IBookService bookService;
     
      
-	private final PublisherService publisherService;
+	private final IPublisherService publisherService;
    
-    public BookController(IAuthorService authorService,BookService bookService,PublisherService publisherService){
+    public BookController(IAuthorService authorService,IBookService bookService,IPublisherService publisherService){
     	this.authorService=authorService;
     	this.bookService=bookService;
     	this.publisherService=publisherService;
     	
     }
     @GetMapping("/")
-    public String index(Model model){
+    private String index(Model model){
     	 
     		model.addAttribute("books",bookService.getAll());
         return "index";
     }
     @GetMapping("/search")
-    public String search(Model model){
+    private String search(Model model){
 model.addAttribute("authors", authorService.findAll());
     		
         return "book/search";
     }
     
     @GetMapping("/book/getall")
-    public String index(Model model,@CurrnetUser Author author){
+    private String index(Model model,@CurrnetUser Author author){
     	 
     		model.addAttribute("books",bookService.findByAuthor(author));
     		
