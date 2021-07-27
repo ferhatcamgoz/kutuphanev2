@@ -14,30 +14,30 @@ public class PublisherController {
 	
 	private final IPublisherService publisherService;
 	
-	PublisherController(IPublisherService publisherService){
+	public PublisherController(IPublisherService publisherService){
 		this.publisherService=publisherService;
 	}
 	
 	
 	@GetMapping("/publisher/add")
-	private String savePublisher() {
+	public String savePublisher() {
 		return "publisher/publisheradd";
 	} 
 	
 	@GetMapping("/publisher/publisherlist")
-	private String getAll(Model model) {
+	public String getAll(Model model) {
 		model.addAttribute("publishers",publisherService.findAll());
 		return "publisher/publisherlist";
 	} 
 	@GetMapping("/publisher/publisheredit/{id}")
-	private String edit(Model model,@PathVariable(value = "id") Long id) {
+	public String edit(Model model,@PathVariable(value = "id") Long id) {
 		model.addAttribute("publisher",publisherService.findById(id));
 		return "publisher/publisheredit";
 	} 
 	
 	
 	@PostMapping("/publisher/save")
-	private String save(Model model,Publisher publisher) {
+	public String save(Model model,Publisher publisher) {
 		 publisherService.save(publisher);
 		
 		model.addAttribute("publishers",publisherService.findAll());
@@ -47,7 +47,7 @@ public class PublisherController {
 	
 	
 	@GetMapping("/publisher/delete/{id}")
-	private String delete(Model model,@PathVariable(value = "id") Long id){
+	public String delete(Model model,@PathVariable(value = "id") Long id){
 		 publisherService.delete(id);
 		 model.addAttribute("publishers",publisherService.findAll());
 			return "publisher/publisherlist";

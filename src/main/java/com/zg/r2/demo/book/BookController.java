@@ -43,27 +43,27 @@ public class BookController {
     	
     }
     @GetMapping("/")
-    private String index(Model model){
+    public String index(Model model){
     	 
     		model.addAttribute("books",bookService.getAll());
         return "index";
     }
     @GetMapping("/search")
-    private String search(Model model){
+    public String search(Model model){
 model.addAttribute("authors", authorService.findAll());
     		
         return "book/search";
     }
     
     @GetMapping("/book/getall")
-    private String index(Model model,@CurrnetUser Author author){
+    public String index(Model model,@CurrnetUser Author author){
     	 
     		model.addAttribute("books",bookService.findByAuthor(author));
     		
         return "book/mybooks";
     }
     @GetMapping("/book/add")
-    private String bookadd(Model model){
+    public String bookadd(Model model){
         model.addAttribute("authors",authorService.findAll());
         model.addAttribute("publishers",publisherService.findAll());
         
@@ -71,7 +71,7 @@ model.addAttribute("authors", authorService.findAll());
     } 
     
     @GetMapping("/book/edit/{bookId}")
-    private String bookedit(Model model,@PathVariable(value = "bookId") Long bookId,@CurrnetUser Author author){
+    public String bookedit(Model model,@PathVariable(value = "bookId") Long bookId,@CurrnetUser Author author){
     	if(author.getRole().equals("admin")) {
     		 model.addAttribute("authors",authorService.findAll());
     	}
@@ -82,7 +82,7 @@ model.addAttribute("authors", authorService.findAll());
     
     
     @PostMapping("/book/add")
-   private String saveBook(
+    public String saveBook(
                            Model model, Book book,   @RequestParam(value = "pub") Long pubid) {
     	
     	bookService.save(book, pubid);
@@ -93,7 +93,7 @@ model.addAttribute("authors", authorService.findAll());
    
     
     @GetMapping("/book/delete/{bookId}")
-    private String delete(Model model,@PathVariable(value = "bookId") Long bookId,@CurrnetUser Author author){
+    public String delete(Model model,@PathVariable(value = "bookId") Long bookId,@CurrnetUser Author author){
     	bookService.delete(bookId);
     	if(author.getRole().equals("admin")) {
     		model.addAttribute("books",bookService.getAll());
@@ -108,7 +108,7 @@ model.addAttribute("authors", authorService.findAll());
     } 
     
     @PostMapping("/book/edit")
-    private String edit(Model model,
+    public String edit(Model model,
     		Book book, @RequestParam(value = "pub") Long pubid){
     	bookService.edit(book,pubid);
     	model.addAttribute("books",bookService.getAll());
@@ -116,26 +116,26 @@ model.addAttribute("authors", authorService.findAll());
         return "book/mybooks";
     } 
     @GetMapping("/book/search/name")
-    private String nameSearch(Model model,@RequestParam(value = "name") String name){
+    public String nameSearch(Model model,@RequestParam(value = "name") String name){
     		model.addAttribute("books",bookService.findByName(name));
     		return "book/searchbook";
        
     } 
     
     @GetMapping("/book/search/isbn")
-    private String isbnSearch(Model model,@RequestParam(value = "isbn") String isbn){
+    public String isbnSearch(Model model,@RequestParam(value = "isbn") String isbn){
     		model.addAttribute("books",bookService.findByIsbn(isbn));
     		return "book/searchbook";
        
     }
     @GetMapping("/book/search/seri")
-    private String seriSearch(Model model,@RequestParam(value = "seri") String seri){
+    public String seriSearch(Model model,@RequestParam(value = "seri") String seri){
     		model.addAttribute("books",bookService.findBySeri(seri));
     		return "book/searchbook";
        
     }
     @GetMapping("/book/search/author")
-    private String authorSearch(Model model,Author author){
+    public String authorSearch(Model model,Author author){
     		model.addAttribute("books",bookService.findByAuthor(author));
     		return "book/searchbook";
        
